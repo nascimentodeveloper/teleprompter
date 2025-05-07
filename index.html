@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <title>Teleprompter</title>
@@ -16,7 +17,6 @@
       font-size: 60px;
       word-spacing: 20px;
       padding: 60px;
-      text-align: center;
     }
 
     #controls {
@@ -53,7 +53,7 @@
       background: #1e1e1e;
       padding: 30px;
       border-radius: 12px;
-      box-shadow: 0 0 30px rgba(0,0,0,0.5);
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
       width: 320px;
       z-index: 999;
     }
@@ -82,14 +82,61 @@
     #overlay {
       display: none;
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       background: rgba(0, 0, 0, 0.6);
       z-index: 998;
     }
+
+    .drag-top,
+    .drag-bottom,
+    .drag-left,
+    .drag-right {
+      position: fixed;
+      background: rgba(255, 255, 255, 0.3);
+      -webkit-app-region: drag;
+      z-index: 9999;
+      pointer-events: auto;
+    }
+
+    /* Cada lado com espessura de 6px */
+    .drag-top {
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+    }
+
+    .drag-bottom {
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+    }
+
+    .drag-left {
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 6px;
+    }
+
+    .drag-right {
+      top: 0;
+      bottom: 0;
+      right: 0;
+      width: 6px;
+    }
   </style>
 </head>
+
 <body>
+  <div class="drag-top"></div>
+  <div class="drag-bottom"></div>
+  <div class="drag-left"></div>
+  <div class="drag-right"></div>
 
   <div id="text">Seu texto vai aqui</div>
 
@@ -110,10 +157,11 @@
     <input type="range" id="speedSlider" min="1" max="20" value="1" oninput="updateLabel('speedVal', this.value)">
 
     <label>Tamanho do texto <span id="fontSizeVal">60</span>px</label>
-    <input type="range" id="fontSizeSlider" min="20" max="100" value="60" oninput="updateLabel('fontSizeVal', this.value); document.getElementById('text').style.fontSize = this.value + 'px';">
+    <input type="range" id="fontSizeSlider" min="20" max="100" value="60"
+      oninput="updateLabel('fontSizeVal', this.value); document.getElementById('text').style.fontSize = this.value + 'px';">
 
     <label>Opacidade do fundo <span id="opacityVal">0.15</span></label>
-    <input type="range" id="opacitySlider" min="0" max="1" step="0.01" value="0.15" 
+    <input type="range" id="opacitySlider" min="0" max="1" step="0.01" value="0.15"
       oninput="updateLabel('opacityVal', this.value); document.body.style.background = `rgba(0,0,0,${this.value})`;">
 
     <button onclick="toggleSettings()">Fechar</button>
@@ -135,4 +183,5 @@
 
   <script src="renderer.js"></script>
 </body>
+
 </html>
