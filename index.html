@@ -1,24 +1,138 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <title>Teleprompter</title>
   <style>
-    body { margin: 0; background: #00000026; color: rgba(255, 255, 255, 0.487); font-size: 2em; overflow: hidden; }
-    #text { white-space: pre-line; font-size: 60px; word-spacing: 20px;}
-    #controls { position: fixed; bottom: 10px; width: 100%; text-align: center; }
-    button { font-size: 1em; margin: 0 10px; }
+    body {
+      margin: 0;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+    }
+
+    #text {
+      white-space: pre-line;
+      font-size: 60px;
+      word-spacing: 20px;
+      padding: 60px;
+      text-align: center;
+    }
+
+    #controls {
+      position: fixed;
+      bottom: 20px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      z-index: 1;
+    }
+
+    button {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 20px;
+      font-size: 1.1em;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    button:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    #settingsModal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #1e1e1e;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.5);
+      width: 320px;
+      z-index: 999;
+    }
+
+    #settingsModal h2 {
+      margin-top: 0;
+      font-size: 1.5em;
+      margin-bottom: 20px;
+    }
+
+    #settingsModal label {
+      display: block;
+      margin: 15px 0 5px;
+      font-weight: bold;
+    }
+
+    #settingsModal input[type="range"] {
+      width: 100%;
+    }
+
+    #settingsModal span {
+      float: right;
+      font-weight: normal;
+    }
+
+    #overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 998;
+    }
   </style>
 </head>
 <body>
-    <div id="text"></div>
-    <div id="controls">
-      <button onclick="startScroll()">▶️ Iniciar</button>
-      <button onclick="pauseScroll()">⏸️ Pausar</button>
-      <button onclick="faster()">⏩ +Veloz</button>
-      <button onclick="slower()">⏪ -Veloz</button>
-    </div>
-    <script src="renderer.js"></script>
-  </body>
-  
+
+  <div id="text">Seu texto vai aqui</div>
+
+  <div id="controls">
+    <button onclick="startScroll()">▶️ Iniciar</button>
+    <button onclick="pauseScroll()">⏸️ Pausar</button>
+    <button onclick="faster()">⏩ +Veloz</button>
+    <button onclick="slower()">⏪ -Veloz</button>
+    <button onclick="toggleSettings()">⚙️ Configurações</button>
+  </div>
+
+  <div id="overlay" onclick="toggleSettings()"></div>
+
+  <div id="settingsModal">
+    <h2>Configurações</h2>
+
+    <label>Velocidade <span id="speedVal">1</span></label>
+    <input type="range" id="speedSlider" min="1" max="20" value="1" oninput="updateLabel('speedVal', this.value)">
+
+    <label>Tamanho do texto <span id="fontSizeVal">60</span>px</label>
+    <input type="range" id="fontSizeSlider" min="20" max="100" value="60" oninput="updateLabel('fontSizeVal', this.value); document.getElementById('text').style.fontSize = this.value + 'px';">
+
+    <label>Opacidade do fundo <span id="opacityVal">0.15</span></label>
+    <input type="range" id="opacitySlider" min="0" max="1" step="0.01" value="0.15" 
+      oninput="updateLabel('opacityVal', this.value); document.body.style.background = `rgba(0,0,0,${this.value})`;">
+
+    <button onclick="toggleSettings()">Fechar</button>
+  </div>
+
+  <script>
+    function toggleSettings() {
+      const modal = document.getElementById("settingsModal");
+      const overlay = document.getElementById("overlay");
+      const isOpen = modal.style.display === "block";
+      modal.style.display = isOpen ? "none" : "block";
+      overlay.style.display = isOpen ? "none" : "block";
+    }
+
+    function updateLabel(id, value) {
+      document.getElementById(id).innerText = value;
+    }
+  </script>
+
+  <script src="renderer.js"></script>
+</body>
 </html>
