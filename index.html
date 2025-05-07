@@ -9,7 +9,8 @@
       margin: 0;
       color: #fff;
       font-family: 'Segoe UI', sans-serif;
-      overflow: hidden;
+      overflow-y: scroll;
+      /* forçar rolagem vertical */
     }
 
     #text {
@@ -167,6 +168,9 @@
     <label>Cor do texto <span id="textColorVal">#ffffff</span></label>
     <input type="color" id="textColorPicker" value="#ffffff"
       oninput="updateLabel('textColorVal', this.value); document.getElementById('text').style.color = this.value;">
+
+    </br>
+    </br>
 
     <button onclick="toggleSettings()">Fechar</button>
   </div>

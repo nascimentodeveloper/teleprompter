@@ -33,6 +33,30 @@ function pauseScroll() {
   clearInterval(interval);
 }
 
+// Permitir rolagem manual com teclado quando pausado
+window.addEventListener('keydown', (e) => {
+  if (!paused) return;
+
+  const scrollStep = 30;
+
+  if (e.key === 'ArrowUp') {
+    window.scrollBy(0, -scrollStep);
+  } else if (e.key === 'ArrowDown') {
+    window.scrollBy(0, scrollStep);
+  } else if (e.key === 'PageUp') {
+    window.scrollBy(0, -window.innerHeight);
+  } else if (e.key === 'PageDown') {
+    window.scrollBy(0, window.innerHeight);
+  }
+});
+
+// Rolar com o mouse quando pausado
+window.addEventListener('wheel', (e) => {
+  if (!paused) return;
+  e.preventDefault();
+  window.scrollBy(0, e.deltaY);
+}, { passive: false });
+
 function faster() {
   speed += 1;
   document.getElementById('speedSlider').value = speed;
@@ -91,3 +115,4 @@ function rgbToHex(rgb) {
     return hex.length === 1 ? '0' + hex : hex;
   }).join('');
 }
+
