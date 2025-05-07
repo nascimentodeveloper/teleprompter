@@ -60,6 +60,8 @@ function updateSettingsDisplay() {
   document.getElementById('speedVal').innerText = speed;
   document.getElementById('fontSizeVal').innerText = textDiv.style.fontSize.replace('px', '');
   document.getElementById('opacityVal').innerText = parseFloat(body.style.backgroundColor.split(',')[3] || 0.15).toFixed(2);
+  document.getElementById('textColorVal').innerText = textDiv.style.color || '#ffffff';
+  document.getElementById('textColorPicker').value = rgbToHex(textDiv.style.color || '#ffffff');
 }
 
 // Eventos dos sliders
@@ -79,3 +81,13 @@ document.getElementById('opacitySlider').addEventListener('input', (e) => {
   body.style.backgroundColor = `rgba(0, 0, 0, ${opacity})`;
   updateSettingsDisplay();
 });
+
+function rgbToHex(rgb) {
+  if (!rgb) return '#ffffff';
+  const result = rgb.match(/\d+/g);
+  if (!result || result.length < 3) return '#ffffff';
+  return '#' + result.slice(0, 3).map(x => {
+    const hex = parseInt(x).toString(16);
+    return hex.length === 1 ? '0' + hex : hex;
+  }).join('');
+}

@@ -164,6 +164,10 @@
     <input type="range" id="opacitySlider" min="0" max="1" step="0.01" value="0.15"
       oninput="updateLabel('opacityVal', this.value); document.body.style.background = `rgba(0,0,0,${this.value})`;">
 
+    <label>Cor do texto <span id="textColorVal">#ffffff</span></label>
+    <input type="color" id="textColorPicker" value="#ffffff"
+      oninput="updateLabel('textColorVal', this.value); document.getElementById('text').style.color = this.value;">
+
     <button onclick="toggleSettings()">Fechar</button>
   </div>
 
