@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Teleprompter</title>
+  <style>
+    body { margin: 0; background: #00000026; color: rgba(255, 255, 255, 0.487); font-size: 2em; overflow: hidden; }
+    #text { white-space: pre-line; font-size: 60px; word-spacing: 20px;}
+    #controls { position: fixed; bottom: 10px; width: 100%; text-align: center; }
+    button { font-size: 1em; margin: 0 10px; }
+  </style>
+</head>
+<body>
+    <div id="text"></div>
+    <div id="controls">
+      <button onclick="startScroll()">▶️ Iniciar</button>
+      <button onclick="pauseScroll()">⏸️ Pausar</button>
+      <button onclick="faster()">⏩ +Veloz</button>
+      <button onclick="slower()">⏪ -Veloz</button>
+    </div>
+    <script src="renderer.js"></script>
+  </body>
+  
+</html>
