@@ -6,7 +6,7 @@ function createWindow() {
     height: 600,
     transparent: true,
     frame: false,
-    alwaysOnTop: true, // Opcional: mantém o teleprompter acima de outras janelas
+    alwaysOnTop: true,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
