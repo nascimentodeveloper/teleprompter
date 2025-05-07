@@ -77,6 +77,8 @@ function toggleSettings() {
 
   modal.style.display = visible ? 'none' : 'block';
   overlay.style.display = visible ? 'none' : 'block';
+
+  document.getElementById('textEditor').value = textDiv.innerText;
   updateSettingsDisplay();
 }
 
@@ -116,3 +118,19 @@ function rgbToHex(rgb) {
   }).join('');
 }
 
+const textFilePath = path.join(__dirname, 'texto.txt');
+
+function saveText() {
+  const newText = document.getElementById('textEditor').value;
+
+  fs.writeFile(textFilePath, newText, 'utf-8', (err) => {
+    if (err) {
+      alert('Erro ao salvar o texto.');
+      console.error(err);
+      return;
+    }
+
+    textDiv.innerText = newText;
+    alert('Texto salvo com sucesso!');
+  });
+}

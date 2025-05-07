@@ -169,6 +169,10 @@
     <input type="color" id="textColorPicker" value="#ffffff"
       oninput="updateLabel('textColorVal', this.value); document.getElementById('text').style.color = this.value;">
 
+    <label for="textEditor">Editar texto</label>
+    <textarea id="textEditor" rows="10" style="width: 100%; resize: vertical;"></textarea>
+    <button onclick="saveText()">💾 Salvar texto</button>
+
     </br>
     </br>
 
